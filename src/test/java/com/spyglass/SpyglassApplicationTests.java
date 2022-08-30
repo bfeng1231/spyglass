@@ -1,4 +1,4 @@
-package com.skillstorm.demo;
+package com.spyglass;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
