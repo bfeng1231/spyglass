@@ -1,5 +1,7 @@
 package com.spyglass.controllers;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,41 +12,43 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.spyglass.models.Account;
-import com.spyglass.services.AccountService;
+import com.spyglass.models.Goal;
+import com.spyglass.services.GoalService;
 
 @RestController
-@RequestMapping("/user")
-public class AccountController {
-
-	@Autowired
-	private AccountService service;
+@RequestMapping("/goal")
+public class GoalController {
 	
-	@GetMapping("/{email}")
-	public Account findByEmail(@PathVariable String email) {
-		return service.findByEmail(email);
+	@Autowired
+	private GoalService service;
+	
+	@GetMapping
+	public List<Goal> findAll(@RequestParam(name="id") int id) {
+		return service.findAll(id);
 	}
 	
-	@PostMapping("/register")
-	public ResponseEntity<Account> save(@RequestBody Account account) {
-		try {
-			service.save(account);
-			return new ResponseEntity<>(account, HttpStatus.CREATED);
-		} catch (Exception e) {
-			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-		}		
+	@GetMapping("/{name}")
+	public Goal findByName(@PathVariable String name) {
+		return service.findByName(name);
+	}
+	
+	@PostMapping
+	public ResponseEntity<Goal> save(@RequestBody Goal goal) {
+		service.save(goal);
+		return new ResponseEntity<>(goal, HttpStatus.OK);
 	}
 	
 	@PutMapping("/{id}")
-	public Account update(@RequestBody Account account, @PathVariable int id) {
-		account.setId(id);
-		return service.save(account);
+	public Goal update(@RequestBody Goal goal, @PathVariable int id) {
+		goal.setId(id);
+		return service.save(goal);
 	}
 	
-	@DeleteMapping("/{id}")
-	public ResponseEntity<Void> delete(@PathVariable int id) {
+	@DeleteMapping
+	public ResponseEntity<Void> delete(int id) {
 		service.delete(id);
 		return new ResponseEntity<>(HttpStatus.OK);
 	}

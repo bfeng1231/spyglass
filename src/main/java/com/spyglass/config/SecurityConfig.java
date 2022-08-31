@@ -40,6 +40,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		
 		http.authorizeRequests().mvcMatchers("/user/register", "/auth/token/refresh").permitAll();
 		http.authorizeRequests().mvcMatchers("/user/**").hasAnyAuthority("ROLE_USER");
+		http.authorizeRequests().mvcMatchers("/goal/**").hasAnyAuthority("ROLE_USER");
 		//http.authorizeRequests().mvcMatchers(HttpMethod.GET, "/login").authenticated();
 		//http.authorizeRequests().anyRequest().authenticated();
 		http.addFilter(new AuthenticationFilter(authenticationManagerBean()));

@@ -1,12 +1,15 @@
 package com.spyglass.models;
 
+import java.util.List;
 import java.util.Objects;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -50,6 +53,9 @@ public class Account {
 	
 	private String dob;
 	
+//	@OneToMany(mappedBy="account")
+//	private List<Goal> goals;
+	
 	public int getId() {
 		return id;
 	}
@@ -90,7 +96,6 @@ public class Account {
 		this.lastName = lastName;
 	}
 	
-	
 	public String getDob() {
 		return dob;
 	}
@@ -98,12 +103,20 @@ public class Account {
 	public void setDob(String dob) {
 		this.dob = dob;
 	}
-
-	@Override
-	public String toString() {
-		return "Account [id=" + id + ", email=" + email + ", password=" + password + ", firstName=" + firstName
-				+ ", lastName=" + lastName + ", dob=" + dob + "]";
-	}
+	
+//	public List<Goal> getGoals() {
+//		return goals;
+//	}
+//
+//	public void setGoals(List<Goal> goals) {
+//		this.goals = goals;
+//	}
+//
+//	@Override
+//	public String toString() {
+//		return "Account [id=" + id + ", email=" + email + ", password=" + password + ", firstName=" + firstName
+//				+ ", lastName=" + lastName + ", dob=" + dob + ", goals=" + goals + "]";
+//	}
 
 	@Override
 	public int hashCode() {
