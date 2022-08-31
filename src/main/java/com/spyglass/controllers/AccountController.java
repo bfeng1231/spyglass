@@ -16,7 +16,7 @@ import com.spyglass.models.Account;
 import com.spyglass.services.AccountService;
 
 @RestController
-@RequestMapping("/login")
+@RequestMapping("/user")
 public class AccountController {
 
 	@Autowired
@@ -27,10 +27,14 @@ public class AccountController {
 		return service.findByEmail(email);
 	}
 	
-	@PostMapping
-	public ResponseEntity<Account> save(Account account) {
-		service.save(account);
-		return new ResponseEntity<>(account, HttpStatus.CREATED);
+	@PostMapping("/register")
+	public ResponseEntity<Account> save(@RequestBody Account account) {
+		try {
+			service.save(account);
+			return new ResponseEntity<>(account, HttpStatus.CREATED);
+		} catch (Exception e) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}		
 	}
 	
 	@PutMapping
@@ -42,6 +46,6 @@ public class AccountController {
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Void> delete(@PathVariable int id) {
 		service.delete(id);
-		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+		return new ResponseEntity<>(HttpStatus.OK);
 	}
 }

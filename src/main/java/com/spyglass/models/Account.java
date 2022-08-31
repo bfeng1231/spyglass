@@ -1,5 +1,7 @@
 package com.spyglass.models;
 
+import java.util.Objects;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -102,5 +104,10 @@ public class Account {
 		return "Account [id=" + id + ", email=" + email + ", password=" + password + ", firstName=" + firstName
 				+ ", lastName=" + lastName + ", dob=" + dob + "]";
 	}
-	
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(id, password);
+	}
+
 }

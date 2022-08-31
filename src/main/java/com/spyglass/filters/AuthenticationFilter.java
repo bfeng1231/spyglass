@@ -7,6 +7,7 @@ import java.util.Map;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -14,7 +15,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -27,6 +27,7 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.spyglass.services.AccountServiceImpl;
 
+@WebFilter
 public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 
 	private static final Logger log = LoggerFactory.getLogger(AccountServiceImpl.class);
@@ -34,7 +35,6 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 	@Value("${jwt.secret}")
 	private String secret = "bruhwhydontitwork";
 	
-	@Autowired
 	private AuthenticationManager authManager;
 	
 	public AuthenticationFilter(AuthenticationManager authManager) {
@@ -45,7 +45,7 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 	public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response)
 			throws AuthenticationException {
 		log.trace("Attempting to Authorize user");
-		String email = request.getParameter("email");
+		String email = request.getParameter("username");
 		String password = request.getParameter("password");
 		log.info("Credentials: {} : {}", email, password);
 		UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(email, password);
