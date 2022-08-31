@@ -33,11 +33,13 @@ public class AuthorizationFilter extends OncePerRequestFilter {
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
 			throws ServletException, IOException {
+		log.debug("PATH: {}", request.getServletPath());
 		switch(request.getServletPath()) {
 			case "/login":
 			case "/user/register":
 			case "/auth/token/refresh":
 				filterChain.doFilter(request, response);
+				return;
 		}
 		
 		String authorizationHeader = request.getHeader("Authorization");
@@ -58,7 +60,7 @@ public class AuthorizationFilter extends OncePerRequestFilter {
 				filterChain.doFilter(request, response);
 			} catch (JWTVerificationException e) {
 				log.trace("Invalid Token");
-				response.setStatus(403);
+				response.setStatus(401);
 			}
 			
 		} else {

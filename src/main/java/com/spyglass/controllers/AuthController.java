@@ -31,7 +31,7 @@ public class AuthController {
 
 	private static final Logger log = LoggerFactory.getLogger(AuthorizationFilter.class);
 	
-	@Value("${jwt.secret}")
+	//@Value("${jwt.secret}")
 	private String secret = "bruhwhydontitwork";
 	
 	@Autowired
@@ -46,13 +46,11 @@ public class AuthController {
 				String refresh_token = authorizationHeader.substring("Bearer ".length());
 				Algorithm algorithm = Algorithm.HMAC256(secret.getBytes());
 				JWTVerifier verifier = JWT.require(algorithm).build();
-				log.trace("Verifying Refresh token");
 				DecodedJWT decodedJWT = verifier.verify(refresh_token);
-				log.trace("Invalid refresh token");
 				
 				String username = decodedJWT.getSubject();
 				Account account = service.findByEmail(username);
-				
+			
 				String access_token = JWT.create()
 						.withSubject(account.getEmail())
 						.withExpiresAt(new Date(System.currentTimeMillis() + 600 * 1000))
@@ -64,9 +62,9 @@ public class AuthController {
 				tokens.put("refresh_token", refresh_token);
 				return new ResponseEntity<>(tokens, HttpStatus.OK);
 				
-			} catch (Exception e) {
-				log.trace("Refresh token expired: {}", e);
-				return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+			} catch (JWTVerificationException e) {
+				log.trace("Refresh token expired");
+				return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
 			}
 			
 		} else {
