@@ -1,0 +1,50 @@
+<nav>
+    <div class="logo" (click)="router.navigate([''])">
+        Spyglass
+    </div>
+    <div>
+        <div>Why Invest?</div>
+        <div>Blog</div>
+    </div>
+</nav>
+
+<main>
+    <form [formGroup]="loginForm" (ngSubmit)="submitForm()" *ngIf="formType === 'login'; else register">
+        <div>
+            <label for="email">Email</label>
+            <input type="email" formControlName="email">
+        </div>
+        <div>
+            <label for="password">Password</label>
+            <input type="password" formControlName="password">
+        </div>
+        <button type="submit" [disabled]="!this.loginForm.valid" pButton>Log In</button>
+    </form>
+
+    <ng-template #register>
+        <form [formGroup]="registerForm">
+            <div>
+                <label for="firstName">First Name</label>
+                <input type="firstName" formControlName="firstName">
+            </div>
+            <div>
+                <label for="lastName">Last Name</label>
+                <input type="lastName" formControlName="lastName">
+            </div>
+            <div>
+                <label for="dob">Date of birth</label>
+                <input type="dob" formControlName="dob">
+            </div>
+            <div>
+                <label for="email">Email</label>
+                <input type="email" formControlName="email">
+            </div>
+            <div>
+                <label for="password">Password</label>
+                <input type="password" formControlName="password">
+            </div>
+            <button type="submit" [disabled]="!this.registerForm.valid" pButton>Log In</button>
+        </form>
+    </ng-template>
+</main>
+<app-footer></app-footer>

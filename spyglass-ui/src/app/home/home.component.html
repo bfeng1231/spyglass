@@ -1,0 +1,43 @@
+<nav>
+    <div class="logo" (click)="router.navigate([''])">
+        Spyglass
+    </div>
+    <div>
+        <div>Why Invest?</div>
+        <div>Blog</div>
+        <div (click)="router.navigate(['login'])">
+            Log in
+        </div>
+        <div (click)="router.navigate(['register'])">
+            Get Started
+        </div>
+    </div>
+</nav>
+
+<main>
+    <section>
+        <div>
+            insert marketing text
+        </div>
+        <button (click)="router.navigate(['register'])" pButton type="button">Get Started</button>
+    </section>
+    <section>
+        <div>
+            marketing 1
+        </div>
+        <div>
+            marketing 2
+        </div>
+        <div>
+            marketing 3
+        </div>
+    </section>
+    <section>
+        <div>
+            marketing deal
+            deposit withraw any time, no fees
+        </div>
+    </section>
+</main>
+
+<app-footer>
