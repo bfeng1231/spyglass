@@ -9,6 +9,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
+
 @Entity
 @Table(name="goal")
 public class Goal {
@@ -32,12 +34,13 @@ public class Goal {
 	@Column(name="current_amount")
 	private int currentAmount;
 	
-	@Column(name="account_id")
-	private int accountId;
+//	@Column(name="account_id")
+//	private int accountId;
 	
-//	@ManyToOne
-//	@JoinColumn(name="account_id")
-//	private Account account;
+	@ManyToOne
+	@JoinColumn(name="account_id")
+	@JsonIdentityReference(alwaysAsId = true)
+	private Account account;
 
 	public Goal() {}
 	
@@ -109,23 +112,23 @@ public class Goal {
 		this.currentAmount = currentAmount;
 	}
 
-	public int getAccountId() {
-		return accountId;
-	}
-
-	public void setAccountId(int accountId) {
-		this.accountId = accountId;
-	}
-	
-	
-	
-//	public Account getAccount() {
-//		return account;
+//	public int getAccountId() {
+//		return accountId;
 //	}
 //
-//	public void setAccount(Account account) {
-//		this.account = account;
+//	public void setAccountId(int accountId) {
+//		this.accountId = accountId;
 //	}
+//	
+	
+	
+	public Account getAccount() {
+		return account;
+	}
+
+	public void setAccount(Account account) {
+		this.account = account;
+	}
 
 //	@Override
 //	public String toString() {
