@@ -1,4 +1,4 @@
-import { Injectable, Type } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http'
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
@@ -18,8 +18,7 @@ export class AccountApiService {
         return this.http.post(`${environment.api}/login`, body)
     }
 
-    getUser(email: any): Observable<any> {
-        let token = ''
+    getUser(email: any, token: any): Observable<any> {
         let headers = new HttpHeaders({
             'Authorization': `Bearer ${token}`
         })

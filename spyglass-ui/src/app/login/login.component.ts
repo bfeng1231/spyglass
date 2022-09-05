@@ -42,7 +42,12 @@ export class LoginComponent implements OnInit {
     submitForm() {
         console.log(this.loginForm.value);
         this.service.login(this.loginForm.value.email, this.loginForm.value.password).subscribe({
-            next: (resp) => { console.log(resp) },
+            next: (resp) => { 
+                console.log(resp)
+                localStorage.setItem('access_token', resp.access_token)
+                localStorage.setItem('refresh_token', resp.refresh_token)
+                this.router.navigate(['dashboard'])
+            },
             error: (err) => { console.log('login failed') }
         })
         // this.service.getUser(this.loginForm.value.email).subscribe({
