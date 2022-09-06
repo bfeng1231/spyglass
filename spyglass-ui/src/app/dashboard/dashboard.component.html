@@ -91,7 +91,7 @@
             </div>
             <div>
                 <label for="targetDate">Target Date</label>
-                <p-calendar formControlName="targetDate" dateFormat="yy-mm-dd" inputId="dateformat" placeholder="How long are you saving?"></p-calendar>
+                <p-calendar formControlName="targetDate" dateFormat="yy-mm-dd" inputId="dateformat" [readonlyInput]="true" placeholder="How long are you saving?"></p-calendar>
             </div>
             <div>
                 <label for="targetAmount">Budget Target</label>
@@ -102,6 +102,7 @@
             <button pButton>Cancel</button>
             <button *ngIf="modal === 'new'" type="submit" [disabled]="!this.goalForm.valid" pButton>Add Goal</button>
             <button *ngIf="modal === 'edit'" type="submit" [disabled]="!this.goalForm.valid" pButton>Update Goal</button>
+            <button *ngIf="modal === 'edit'" (click)="deleteGoal()" pButton>Delete Goal</button>
         </div>
     </form>
 </ng-template>

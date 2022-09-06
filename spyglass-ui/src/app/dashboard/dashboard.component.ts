@@ -68,7 +68,20 @@ export class DashboardComponent implements OnInit {
                 console.log('Use refresh')
                 console.log(this.goalForm.value)
                 this.authService.refreshToken(localStorage.getItem('refresh_token')).subscribe({
-                    next: () => this.goalService.update(this.user.id, this.goalForm.value, localStorage.getItem('access_token')).subscribe(resp => this.user.goal.push(resp)),
+                    next: () => this.goalService.update(this.user.id, this.goalForm.value, localStorage.getItem('access_token')).subscribe(),
+                    error: () => console.log('refresh token expired')
+                })
+            }
+        })
+    }
+
+    deleteGoal() {
+        this.goalService.delete(this.goalForm.get('id').value, localStorage.getItem('access_token')).subscribe({
+            next: () => {},
+            error: () => {
+                console.log('Use refresh')
+                this.authService.refreshToken(localStorage.getItem('refresh_token')).subscribe({
+                    next: () => this.goalService.delete(this.goalForm.get('id').value, localStorage.getItem('access_token')).subscribe(),
                     error: () => console.log('refresh token expired')
                 })
             }
@@ -104,7 +117,7 @@ export class DashboardComponent implements OnInit {
                     let diff = this.goalForm.get('currentAmount').value - Number(amount)
                     if (diff < 0)
                         return console.log('too much')
-                        
+
                     this.goalForm.patchValue({
                         currentAmount: diff
                     })
@@ -112,7 +125,8 @@ export class DashboardComponent implements OnInit {
                 }
             }
             
-        } 
+        }
+        this.modal === '' 
     }
 
     prefillData(goal: any) {

@@ -41,4 +41,12 @@ export class GoalApiService {
 
         return this.http.put(`${environment.api}/goal/${goalId}`, body, options) 
     }
+
+    delete(id: number, token: any) {
+        let options = {headers: new HttpHeaders({
+            'Authorization': `Bearer ${token}`
+        })}
+
+        return this.http.delete(`${environment.api}/goal/${id}`, options) 
+    }
 }
