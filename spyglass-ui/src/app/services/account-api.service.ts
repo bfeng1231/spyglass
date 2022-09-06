@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http'
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -24,5 +24,11 @@ export class AccountApiService {
         })
         let options = {headers}
         return this.http.get(`${environment.api}/user/${email}`, options)
+            .pipe(map(resp => {
+                let temp: any = resp
+                delete temp.password
+                return temp
+            }
+        ))
     }
 }

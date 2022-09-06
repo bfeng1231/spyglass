@@ -1,3 +1,117 @@
 <p>dashboard works!</p>
 <div>{{ user.firstName }}</div>
 <div>{{ user.email }}</div>
+
+<nav>
+
+</nav>
+<header>
+    <button (click)="initializeForm()" pButton>New</button>
+</header>
+<main>
+    <div *ngFor="let elem of user.goals">
+        <div>{{ elem.name }}</div>
+        <div>{{ elem.description }}</div>
+        <div>Save {{ elem.targetAmount | currency }} by {{ elem.targetDate | date: 'mediumDate' }}</div>
+        <div class="progress">
+            <p-progressBar [value]="(elem.currentAmount/elem.targetAmount) * 100"></p-progressBar>
+            <div>
+                <div>{{ elem.currentAmount | currency }}</div>
+                <div>{{ elem.targetAmount | currency }}</div>
+            </div>
+        </div>
+        <div>
+            <div>{{ elem.targetAmount - elem.currentAmount | currency }} More To Go</div>
+        </div>
+        <div>
+            <button (click)="modal = 'deposit'" pButton>Deposit</button>
+            <button (click)="modal = 'withdraw'" pButton>Withdraw</button>
+            <button (click)="prefillData(elem)" pButton>Edit</button>
+        </div>
+    </div>
+</main>
+
+<div class="modal" *ngIf="modal !== ''">
+    <div *ngIf="modal === 'deposit'">
+        <header>
+            <div>Deposit To Goal</div>
+            <div (click)="modal = ''">close</div>
+        </header>
+        <div>
+            <label>Amount</label>
+            <input type="text" pInputText pKeyFilter="money">
+        </div>
+        <div>
+            <button pButton>Cancel</button>
+            <button pButton>Confirm</button>
+        </div>
+    </div>
+
+    <div *ngIf="modal === 'withdraw'">
+        <header>
+            <div>Withdraw From Goal</div>
+            <div (click)="modal = ''">close</div>
+        </header>
+        <div>
+            <label>Amount</label>
+            <input type="text" pInputText pKeyFilter="money">
+        </div>
+        <div>
+            <button pButton>Cancel</button>
+            <button pButton>Confirm</button>
+        </div>
+    </div>
+
+    <div *ngIf="modal === 'edit'">
+        <header>
+            <div>Edit Goal</div>
+            <div (click)="modal = ''">close</div>
+        </header>
+        <div>
+            <ng-container [ngTemplateOutlet]="goal"></ng-container>
+        </div>
+    </div>
+
+    <div *ngIf="modal === 'new'">
+        <header>
+            <div>New Goal</div>
+            <div (click)="modal = ''">close</div>
+        </header>
+        <div>
+            <ng-container [ngTemplateOutlet]="goal"></ng-container>
+        </div>
+    </div>
+    
+</div>
+
+<ng-template #goal>
+    <form [formGroup]="goalForm" (ngSubmit)="submitForm()">
+        <div>
+            <div>
+                <label for="name">Name</label>
+                <input type="text" formControlName="name" pInputText placeholder="Name of the goal or item">
+            </div>
+            <div>
+                <label for="description">Description</label>
+                <textarea formControlName="description" pInputTextarea placeholder="Describe your goal or item (Optional)"></textarea>
+            </div>
+            <div>
+                <label for="picture">Image URL</label>
+                <input type="text" formControlName="picture" pInputText placeholder="A nice picture of your goal (Optional)">
+            </div>
+            <div>
+                <label for="targetDate">Target Date</label>
+                <p-calendar formControlName="targetDate" dateFormat="yy-mm-dd" inputId="dateformat" placeholder="How long are you saving?"></p-calendar>
+            </div>
+            <div>
+                <label for="targetAmount">Budget Target</label>
+                <input type="text" formControlName="targetAmount" pInputText pKeyFilter="money" placeholder="How much do you need?">
+            </div>
+        </div>
+        <div>
+            <button pButton>Cancel</button>
+            <button *ngIf="modal === 'new'" type="submit" [disabled]="!this.goalForm.valid" pButton>Add Goal</button>
+            <button *ngIf="modal === 'edit'" type="submit" [disabled]="!this.goalForm.valid" pButton>Update Goal</button>
+        </div>
+    </form>
+</ng-template>

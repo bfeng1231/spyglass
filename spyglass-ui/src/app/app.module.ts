@@ -6,10 +6,16 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { FooterComponent } from './footer/footer.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 import { ButtonModule } from 'primeng/button';
 import { ReactiveFormsModule } from '@angular/forms';
-import { DashboardComponent } from './dashboard/dashboard.component';
+import { InputTextModule } from 'primeng/inputtext';
+import { ProgressBarModule } from 'primeng/progressbar';
+import { KeyFilterModule } from 'primeng/keyfilter';
+import { InputTextareaModule } from 'primeng/inputtextarea';
+import { CalendarModule } from 'primeng/calendar';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -24,7 +30,13 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     AppRoutingModule,
     ButtonModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    InputTextModule,
+    InputTextareaModule,
+    ProgressBarModule,
+    KeyFilterModule,
+    CalendarModule,
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

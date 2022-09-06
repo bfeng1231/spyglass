@@ -12,11 +12,11 @@
     <form [formGroup]="loginForm" (ngSubmit)="submitForm()" *ngIf="formType === 'login'; else register">
         <div>
             <label for="email">Email</label>
-            <input type="email" formControlName="email">
+            <input type="email" formControlName="email" pInputText>
         </div>
         <div>
             <label for="password">Password</label>
-            <input type="password" formControlName="password">
+            <input type="password" formControlName="password" pInputText>
         </div>
         <button type="submit" [disabled]="!this.loginForm.valid" pButton>Log In</button>
     </form>
@@ -25,23 +25,23 @@
         <form [formGroup]="registerForm">
             <div>
                 <label for="firstName">First Name</label>
-                <input type="firstName" formControlName="firstName">
+                <input type="firstName" formControlName="firstName" pInputText>
             </div>
             <div>
                 <label for="lastName">Last Name</label>
-                <input type="lastName" formControlName="lastName">
+                <input type="lastName" formControlName="lastName" pInputText>
             </div>
             <div>
                 <label for="dob">Date of birth</label>
-                <input type="dob" formControlName="dob">
+                <input type="dob" formControlName="dob" pInputText>
             </div>
             <div>
                 <label for="email">Email</label>
-                <input type="email" formControlName="email">
+                <input type="email" formControlName="email" pInputText>
             </div>
             <div>
                 <label for="password">Password</label>
-                <input type="password" formControlName="password">
+                <input type="password" formControlName="password" pInputText>
             </div>
             <button type="submit" [disabled]="!this.registerForm.valid" pButton>Log In</button>
         </form>
