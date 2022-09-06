@@ -17,7 +17,7 @@ export class LoginComponent implements OnInit {
     }
 
     loginForm = this.fb.group({
-        email: ['', Validators.required],
+        email: ['', Validators.pattern('[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+')],
         password: ['', Validators.required]
     })
 
@@ -25,7 +25,7 @@ export class LoginComponent implements OnInit {
         firstName: ['', Validators.required],
         lastName: ['', Validators.required],
         dob: ['', Validators.required],
-        email: ['', Validators.required, Validators.pattern('[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+')],
+        email: ['', Validators.pattern('[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+')],
         password: ['', Validators.required],
         confirmPassword: ['', Validators.required]
     })
@@ -35,25 +35,38 @@ export class LoginComponent implements OnInit {
     ngOnInit(): void {
         if (this.router.url === '/register')
             this.formType = 'register'
-        else
+        else {
             this.formType = 'login'
+            if (localStorage.getItem('refresh_token') != null) {
+                let token: any = localStorage.getItem('refresh_token')!.split('.')
+                token = JSON.parse(window.atob(token[1]))
+
+                if (Date.now() > token.exp)
+                    this.router.navigate(['dashboard'])
+            }
+        }
+            
     }
 
     submitForm() {
-        console.log(this.loginForm.value);
-        this.service.login(this.loginForm.value.email, this.loginForm.value.password).subscribe({
-            next: (resp) => { 
-                console.log(resp)
-                localStorage.setItem('access_token', resp.access_token)
-                localStorage.setItem('refresh_token', resp.refresh_token)
-                this.router.navigate(['dashboard'])
-            },
-            error: (err) => { console.log('login failed') }
-        })
-        // this.service.getUser(this.loginForm.value.email).subscribe({
-        //     next: (resp) => { console.log(resp) },
-        //     error: (err) => { console.log('whoops') }
-        // })
+        if (this.formType === 'login') {
+            this.service.login(this.loginForm.value.email, this.loginForm.value.password).subscribe({
+                next: (resp) => { 
+                    console.log(resp)
+                    localStorage.setItem('access_token', resp.access_token)
+                    localStorage.setItem('refresh_token', resp.refresh_token)
+                    this.router.navigate(['dashboard'])
+                },
+                error: (err) => { console.log('login failed') }
+            })
+        }
+        else {
+            this.service.register(this.registerForm.value).subscribe(() => {
+                localStorage.clear()
+                this.router.navigate(['login'])
+            })
+        }
+        
     }
 
 }

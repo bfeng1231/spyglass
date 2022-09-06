@@ -31,4 +31,12 @@ export class AccountApiService {
             }
         ))
     }
+
+    register(body: any): Observable<any> {
+        body = {
+            ...body,
+            dob: body.dob.toISOString().substring(0, 10) 
+        }
+        return this.http.post(`${environment.api}/user/register`, body)
+    }
 }

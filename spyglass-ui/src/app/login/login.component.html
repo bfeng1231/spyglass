@@ -22,18 +22,18 @@
     </form>
 
     <ng-template #register>
-        <form [formGroup]="registerForm">
+        <form [formGroup]="registerForm" (ngSubmit)="submitForm()">
             <div>
                 <label for="firstName">First Name</label>
-                <input type="firstName" formControlName="firstName" pInputText>
+                <input type="firstName" formControlName="firstName" pInputText pKeyFilter="alpha">
             </div>
             <div>
                 <label for="lastName">Last Name</label>
-                <input type="lastName" formControlName="lastName" pInputText>
+                <input type="lastName" formControlName="lastName" pInputText pKeyFilter="alpha">
             </div>
             <div>
                 <label for="dob">Date of birth</label>
-                <input type="dob" formControlName="dob" pInputText>
+                <p-calendar formControlName="dob" dateFormat="yy-mm-dd" inputId="dateformat" placeholder="Date of Birth"></p-calendar>
             </div>
             <div>
                 <label for="email">Email</label>
@@ -43,7 +43,11 @@
                 <label for="password">Password</label>
                 <input type="password" formControlName="password" pInputText>
             </div>
-            <button type="submit" [disabled]="!this.registerForm.valid" pButton>Log In</button>
+            <div>
+                <label for="confirmPassword">Password</label>
+                <input type="password" formControlName="confirmPassword" pInputText>
+            </div>
+            <button type="submit" [disabled]="!this.registerForm.valid" pButton>Register</button>
         </form>
     </ng-template>
 </main>
