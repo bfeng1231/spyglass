@@ -49,8 +49,8 @@ public class GoalController {
 		return service.save(goal);
 	}
 	
-	@DeleteMapping
-	public ResponseEntity<Void> delete(int id) {
+	@DeleteMapping("/{id}")
+	public ResponseEntity<Void> delete(@PathVariable int id) {
 		service.delete(id);
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
