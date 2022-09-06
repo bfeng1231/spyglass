@@ -24,8 +24,8 @@
             <div>{{ elem.targetAmount - elem.currentAmount | currency }} More To Go</div>
         </div>
         <div>
-            <button (click)="modal = 'deposit'" pButton>Deposit</button>
-            <button (click)="modal = 'withdraw'" pButton>Withdraw</button>
+            <button (click)="editSavings(elem, 'deposit')" pButton>Deposit</button>
+            <button (click)="editSavings(elem, 'withdraw')" pButton>Withdraw</button>
             <button (click)="prefillData(elem)" pButton>Edit</button>
         </div>
     </div>
@@ -38,12 +38,7 @@
             <div (click)="modal = ''">close</div>
         </header>
         <div>
-            <label>Amount</label>
-            <input type="text" pInputText pKeyFilter="money">
-        </div>
-        <div>
-            <button pButton>Cancel</button>
-            <button pButton>Confirm</button>
+            <ng-container [ngTemplateOutlet]="savings"></ng-container>
         </div>
     </div>
 
@@ -53,12 +48,7 @@
             <div (click)="modal = ''">close</div>
         </header>
         <div>
-            <label>Amount</label>
-            <input type="text" pInputText pKeyFilter="money">
-        </div>
-        <div>
-            <button pButton>Cancel</button>
-            <button pButton>Confirm</button>
+            <ng-container [ngTemplateOutlet]="savings"></ng-container>
         </div>
     </div>
 
@@ -114,4 +104,15 @@
             <button *ngIf="modal === 'edit'" type="submit" [disabled]="!this.goalForm.valid" pButton>Update Goal</button>
         </div>
     </form>
+</ng-template>
+
+<ng-template #savings>
+        <div>
+            <label>Amount</label>
+            <input type="text" [value]="0" pInputText pKeyFilter="money" #amount>
+        </div>
+        <div>
+            <button pButton>Cancel</button>
+            <button type='submit' (click)="submitForm(amount.value)" pButton>Confirm</button>
+        </div>
 </ng-template>

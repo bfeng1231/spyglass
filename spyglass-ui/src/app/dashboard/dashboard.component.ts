@@ -61,7 +61,21 @@ export class DashboardComponent implements OnInit {
         })
     }
 
-    submitForm() {
+    updateGoal() {
+        this.goalService.update(this.user.id, this.goalForm.value, localStorage.getItem('access_token')).subscribe({
+            next: resp => {},
+            error: () => {
+                console.log('Use refresh')
+                console.log(this.goalForm.value)
+                this.authService.refreshToken(localStorage.getItem('refresh_token')).subscribe({
+                    next: () => this.goalService.update(this.user.id, this.goalForm.value, localStorage.getItem('access_token')).subscribe(resp => this.user.goal.push(resp)),
+                    error: () => console.log('refresh token expired')
+                })
+            }
+        })
+    }
+
+    submitForm(amount?: any) {
         if (this.modal === 'new') {
             this.goalService.save(this.user.id, this.goalForm.value, localStorage.getItem('access_token')).subscribe({
                 next: resp => this.user.goals.push(resp),
@@ -74,20 +88,31 @@ export class DashboardComponent implements OnInit {
                 }
             })
         }
-        else {
-            this.goalService.update(this.user.id, this.goalForm.value, localStorage.getItem('access_token')).subscribe({
-                next: resp => {},
-                error: () => {
-                    console.log('Use refresh')
-                    console.log(this.goalForm.value)
-                    this.authService.refreshToken(localStorage.getItem('refresh_token')).subscribe({
-                        next: () => this.goalService.update(this.user.id, this.goalForm.value, localStorage.getItem('access_token')).subscribe(resp => this.user.goal.push(resp)),
-                        error: () => console.log('refresh token expired')
-                    })
-                }
-            })
+        else if (this.modal === 'edit') {
+            this.updateGoal()
         }
-       
+        else {
+            if (amount! > 0) {
+                if (this.modal === 'deposit') {
+                    this.goalForm.patchValue({
+                        currentAmount: this.goalForm.get('currentAmount').value + Number(amount)
+                    })
+                    this.updateGoal()
+                }
+                    
+                else {
+                    let diff = this.goalForm.get('currentAmount').value - Number(amount)
+                    if (diff < 0)
+                        return console.log('too much')
+                        
+                    this.goalForm.patchValue({
+                        currentAmount: diff
+                    })
+                    this.updateGoal()
+                }
+            }
+            
+        } 
     }
 
     prefillData(goal: any) {
@@ -101,5 +126,10 @@ export class DashboardComponent implements OnInit {
             targetAmount: [goal.targetAmount, Validators.required],
             currentAmount: [goal.currentAmount]
         })
+    }
+
+    editSavings(goal: any, type: string) {
+        this.prefillData(goal)
+        this.modal = type
     }
 }
