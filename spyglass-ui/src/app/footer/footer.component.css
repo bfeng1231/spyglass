@@ -1,0 +1,75 @@
+footer {
+    background-color: #717378;
+    color: white;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+}
+
+section {
+    width: 40%;
+    margin-top: 100px;
+    margin-bottom: 100px;
+}
+
+.logo > div {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 24px;
+    cursor: pointer;
+    width: fit-content;
+}
+
+.logo img {
+    width: auto;
+    height: 50px;
+    filter: invert(100%);
+}
+
+.social {
+    width: fit-content;
+    display: flex;
+    gap: 20px;
+}
+
+.social > div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.social i {
+    font-size: 16px;
+    border: 2px solid white;
+    border-radius: 50%;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.social > div > div {
+    font-size: 14px;
+    margin-top: 5px;
+}
+
+.info {
+    display: flex;
+    flex-flow: column;
+    gap: 20px;
+}
+
+.links {
+    display: flex;
+    font-size: 22px;
+    justify-content: space-evenly;
+}
+
+.links > div {
+    display: flex;
+    flex-flow: column;
+    gap: 20px;
+}
+
+.links > div > div {
+    cursor: pointer;
+}

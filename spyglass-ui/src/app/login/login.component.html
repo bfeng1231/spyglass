@@ -1,15 +1,8 @@
-<nav>
-    <div class="logo" (click)="router.navigate([''])">
-        Spyglass
-    </div>
-    <div>
-        <div>Why Invest?</div>
-        <div>Blog</div>
-    </div>
-</nav>
+<app-navbar></app-navbar>
 
 <main>
     <form [formGroup]="loginForm" (ngSubmit)="submitForm()" *ngIf="formType === 'login'; else register">
+        <h3>Log in to Spyglass</h3>
         <div>
             <label for="email">Email</label>
             <input type="email" formControlName="email" pInputText>
@@ -18,11 +11,14 @@
             <label for="password">Password</label>
             <input type="password" formControlName="password" pInputText>
         </div>
+        <h5>Forgot your password?</h5>
         <button type="submit" [disabled]="!this.loginForm.valid" pButton>Log In</button>
+        <p>Not on Spyglass? <span (click)="router.navigate(['register'])">Create an account</span></p>
     </form>
 
     <ng-template #register>
         <form [formGroup]="registerForm" (ngSubmit)="submitForm()">
+            <h3>Create an account</h3>
             <div>
                 <label for="firstName">First Name</label>
                 <input type="firstName" formControlName="firstName" pInputText pKeyFilter="alpha">
@@ -33,7 +29,7 @@
             </div>
             <div>
                 <label for="dob">Date of birth</label>
-                <p-calendar formControlName="dob" dateFormat="yy-mm-dd" inputId="dateformat" [readonlyInput]="true" placeholder="Date of Birth"></p-calendar>
+                <p-calendar formControlName="dob" dateFormat="yy-mm-dd" inputId="dateformat" [readonlyInput]="true"></p-calendar>
             </div>
             <div>
                 <label for="email">Email</label>
@@ -47,8 +43,11 @@
                 <label for="confirmPassword">Password</label>
                 <input type="password" formControlName="confirmPassword" pInputText>
             </div>
+            <p>By continuing, you agree to the Spyglass User Account Agreement and Privacy Policy.</p>
             <button type="submit" [disabled]="!this.registerForm.valid" pButton>Register</button>
         </form>
     </ng-template>
+    <img src="../../assets/images/login.png" *ngIf="formType === 'login'">
+    <img src="../../assets/images/register.png" *ngIf="formType === 'register'">
 </main>
 <app-footer></app-footer>

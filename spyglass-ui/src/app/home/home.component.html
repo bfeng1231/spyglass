@@ -1,41 +1,52 @@
-<nav>
-    <div class="logo" (click)="router.navigate([''])">
-        Spyglass
-    </div>
-    <div>
-        <div>Why Invest?</div>
-        <div>Blog</div>
-        <div (click)="router.navigate(['login'])">
-            Log in
-        </div>
-        <div (click)="router.navigate(['register'])">
-            Get Started
-        </div>
-    </div>
-</nav>
+<app-navbar></app-navbar>
 
 <main>
-    <section>
-        <div>
-            insert marketing text
+    <section class="banner">
+        <div class="banner-info">
+            <h1>Grow your future, save now</h1>
+            <div>Spyglass makes saving on short and long term financial goals simple.</div>
+            <button (click)="router.navigate(['register'])" pButton type="button">Get Started</button>
         </div>
-        <button (click)="router.navigate(['register'])" pButton type="button">Get Started</button>
-    </section>
-    <section>
-        <div>
-            marketing 1
-        </div>
-        <div>
-            marketing 2
-        </div>
-        <div>
-            marketing 3
+        <div class="banner-image">
+            <img src="../../assets/images/banner.png" alt="banner">
         </div>
     </section>
-    <section>
+    <div class="line"></div>
+    <section class="features">
         <div>
-            marketing deal
-            deposit withraw any time, no fees
+            <div class="icon">
+                <img src="../../assets/images/save-money.png" alt="money bill">
+            </div>
+            <h4>It's your money</h4>
+            <div>Viverra ipsum nunc aliquet bibendum. Mauris commodo quis imperdiet massa tincidunt nunc pulvinar.</div>
+        </div>
+        <div>
+            <div class="icon">
+                <img src="../../assets/images/piggy-bank.png" alt="budget">
+            </div>
+            <h4>Save for your goals</h4>
+            <div>Mauris commodo quis imperdiet massa tincidunt. Mauris cursus mattis molestie a iaculis at erat. Id semper risus in hendrerit.</div>
+        </div>
+        <div>
+            <div class="icon">
+                <img src="../../assets/images/growth.png" alt="stock">
+            </div>
+            <h4>Investing is easy</h4>
+            <div>Duis convallis convallis tellus id interdum velit. Faucibus a pellentesque sit amet porttitor eget.</div>
+        </div>
+    </section>
+    <div class="divider"></div>
+    <section class="features-2">
+        <div class="title">
+            <h4>Simple pricing.</h4>
+        </div>
+        <div>
+            <h4>SAVE IN CASH FOR FREE</h4>
+            <div>Deposit and withdraw any time. No hidden fees.</div>
+        </div>
+        <div>
+            <h4>INVEST AS LITTLE AS $1</h4>
+            <div>Just $1 per month for every $1000 you invest. That's less than most advisors and on par with other digital investing products.</div>
         </div>
     </section>
 </main>

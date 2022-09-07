@@ -1,0 +1,50 @@
+nav {
+    display: flex;
+    justify-content: space-between;
+    width: 80%;
+    margin: auto;
+    font-size: 24px;
+}
+
+nav > div {
+    display: flex;
+    flex-basis: 50%;
+    gap: 50px;
+    margin-top: 50px;
+}
+
+nav > div > div {
+    cursor: pointer;
+}
+
+.navigation {
+    justify-content: flex-end;
+    align-items: center;
+    font-size: 18px;
+}
+
+.navigation > div:nth-child(3) {
+    border: 1px solid black;
+    border-radius: 30px;
+    padding: 5px 15px 5px 15px;
+}
+
+.navigation > div:last-child {
+    border: 1px solid black;
+    border-radius: 30px;
+    padding: 5px 15px 5px 15px;
+    background-color: black;
+    color: white;
+}
+
+.logo > div {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 36px;
+}
+
+.logo img {
+    width: auto;
+    height: 70px;
+}

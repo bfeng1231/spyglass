@@ -99,10 +99,10 @@
             </div>
         </div>
         <div>
-            <button pButton>Cancel</button>
+            <button (click)="modal = ''" type="button" pButton>Cancel</button>
             <button *ngIf="modal === 'new'" type="submit" [disabled]="!this.goalForm.valid" pButton>Add Goal</button>
             <button *ngIf="modal === 'edit'" type="submit" [disabled]="!this.goalForm.valid" pButton>Update Goal</button>
-            <button *ngIf="modal === 'edit'" (click)="deleteGoal()" pButton>Delete Goal</button>
+            <button *ngIf="modal === 'edit'" (click)="deleteGoal()" type="button" pButton>Delete Goal</button>
         </div>
     </form>
 </ng-template>

@@ -1,0 +1,46 @@
+main {
+    display: flex;
+    height: 90vh;
+}
+
+form {
+    margin: auto;
+    background-color: #F4F6F0;
+    padding: 25px 50px 25px 50px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    min-width: 25%;
+    max-width: 25%;
+    box-shadow: 10px 10px 5px lightgray;
+}
+
+form > div {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+p, h5 {
+    font-size: 14px;
+}
+
+span, h5 {
+    text-decoration: underline;
+    font-weight: bold;
+    width: fit-content;
+    cursor: pointer;
+}
+
+img {
+    width: auto;
+    height: 40%;
+    position: absolute;
+    bottom: 0px;
+    right: 20px
+}
+
+button {
+    width: fit-content;
+}

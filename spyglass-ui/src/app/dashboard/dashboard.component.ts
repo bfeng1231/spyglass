@@ -21,7 +21,6 @@ export class DashboardComponent implements OnInit {
     }
 
     modal: string = ''
-    goalId: number = 0
 
     goalForm: any
 
@@ -63,7 +62,9 @@ export class DashboardComponent implements OnInit {
 
     updateGoal() {
         this.goalService.update(this.user.id, this.goalForm.value, localStorage.getItem('access_token')).subscribe({
-            next: resp => {},
+            next: resp => {
+                this.user.goals[this.user.goals.findIndex((elem: any) => elem.id === this.goalForm.get('id').value)] = resp
+            },
             error: () => {
                 console.log('Use refresh')
                 console.log(this.goalForm.value)
@@ -76,12 +77,15 @@ export class DashboardComponent implements OnInit {
     }
 
     deleteGoal() {
-        this.goalService.delete(this.goalForm.get('id').value, localStorage.getItem('access_token')).subscribe({
-            next: () => {},
+        let id = this.goalForm.get('id').value
+        this.goalService.delete(id, localStorage.getItem('access_token')).subscribe({
+            next: () => {
+                this.user.goals.splice(this.user.goals.findIndex((elem: any) => elem.id === id), 1)
+            },
             error: () => {
                 console.log('Use refresh')
                 this.authService.refreshToken(localStorage.getItem('refresh_token')).subscribe({
-                    next: () => this.goalService.delete(this.goalForm.get('id').value, localStorage.getItem('access_token')).subscribe(),
+                    next: () => this.goalService.delete(id, localStorage.getItem('access_token')).subscribe(),
                     error: () => console.log('refresh token expired')
                 })
             }
@@ -126,7 +130,7 @@ export class DashboardComponent implements OnInit {
             }
             
         }
-        this.modal === '' 
+        this.modal = '' 
     }
 
     prefillData(goal: any) {
@@ -146,4 +150,5 @@ export class DashboardComponent implements OnInit {
         this.prefillData(goal)
         this.modal = type
     }
+
 }

@@ -1,0 +1,135 @@
+nav {
+    display: flex;
+    justify-content: space-between;
+    width: 80%;
+    margin: auto;
+    font-size: 24px;
+}
+
+nav > div {
+    display: flex;
+    flex-basis: 50%;
+    gap: 50px;
+    margin-top: 50px;
+}
+
+nav > div > div {
+    cursor: pointer;
+}
+
+.navigation {
+    justify-content: flex-end;
+    align-items: center;
+    font-size: 18px;
+}
+
+.navigation > div:last-child {
+    border: 1px solid black;
+    border-radius: 30px;
+    padding: 5px 15px 5px 15px;
+}
+
+.logo > div {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 36px;
+}
+
+.logo img {
+    width: auto;
+    height: 70px;
+}
+
+.banner {
+    display: flex;
+    width: 80vw;
+    margin: auto;
+    margin-bottom: 100px;
+}
+
+.banner h1 {
+    font-size: 64px;
+}
+
+.banner > div > div {
+    font-size: 24px;
+    margin-bottom: 30px;
+}
+
+.banner-info {
+    flex-basis: 35%;
+}
+
+.banner-image {
+    flex-basis: 65%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.banner-image img {
+    height: 70%;
+    width: auto;
+    margin-right: 15%;
+}
+
+.banner button {
+    font-size: 18px;
+}
+
+.features, .features-2 {
+    display: flex;
+    width: 80vw;
+    margin: auto;
+    gap: 10%;
+    margin-bottom: 100px;
+}
+
+.features i {
+    font-size: 60px;
+    margin: auto;
+}
+
+.icon {
+    display: flex;
+}
+
+.features img {
+    width: auto;
+    height: 20vh;
+    margin: auto;
+}
+
+.features h4 {
+    font-size: 24px;
+}
+
+.features-2 > div {
+    width: 30%;
+}
+
+.title {
+    font-size: 24px;
+}
+
+.title h4 {
+    width: 10%;
+}
+
+.line, .line-2 {
+    background-image: url('../../assets/images/line.svg');
+    height: 15vh;
+    background-size: cover;
+    background-position-y: 75%;
+    margin-bottom: 100px;
+}
+
+.line-2 {
+    transform:scaleX(-1);
+}
+
+.divider {
+    border-bottom: 1px solid #2f2f2f;
+    margin-bottom: 100px;
+}
