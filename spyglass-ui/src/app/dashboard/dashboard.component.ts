@@ -12,12 +12,17 @@ import { GoalApiService } from '../services/goal-api.service';
 })
 export class DashboardComponent implements OnInit {
 
-    constructor(private router: Router, private accountService: AccountApiService, private authService: AuthApiService, private fb: FormBuilder,
-        private goalService: GoalApiService) { }
+    router: Router
+
+    constructor(router: Router, private accountService: AccountApiService, private authService: AuthApiService, private fb: FormBuilder,
+        private goalService: GoalApiService) { 
+            this.router = router
+        }
 
     user: any = {
         firstName: '',
-        email: ''
+        email: '',
+        goals: []
     }
 
     modal: string = ''
@@ -109,7 +114,7 @@ export class DashboardComponent implements OnInit {
             this.updateGoal()
         }
         else {
-            if (amount! > 0) {
+            if (amount! > 0 && amount !== '') {
                 if (this.modal === 'deposit') {
                     this.goalForm.patchValue({
                         currentAmount: this.goalForm.get('currentAmount').value + Number(amount)
@@ -151,4 +156,14 @@ export class DashboardComponent implements OnInit {
         this.modal = type
     }
 
+    getTotalSaved(): number {
+        let total = 0
+        if (this.user.goals.length != 0)
+            this.user.goals.map((elem: any) => total += elem.currentAmount)
+        return total
+    }
+
+    getPercent(current: number, target: number) {
+        return Math.round(current / target * 100) 
+    }
 }
