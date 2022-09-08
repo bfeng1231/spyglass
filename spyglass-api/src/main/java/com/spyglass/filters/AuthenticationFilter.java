@@ -7,7 +7,6 @@ import java.util.Map;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -15,6 +14,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.env.Environment;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -25,22 +25,23 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.spyglass.services.AccountServiceImpl;
 
-@WebFilter
 public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 
-	private static final Logger log = LoggerFactory.getLogger(AccountServiceImpl.class);
+	private static final Logger log = LoggerFactory.getLogger(AuthenticationFilter.class);
 	
-	@Value("${jwt.secret}")
-	private String secret = "bruhwhydontitwork";
+	private Environment env;
+	
+	//@Value("${jwt.secret}")
+	//private String secret = env.getProperty("jwt_secret");//= "bruhwhydontitwork";
 	
 	private AuthenticationManager authManager;
 	
-	public AuthenticationFilter(AuthenticationManager authManager) {
+	public AuthenticationFilter(AuthenticationManager authManager, Environment env) {
 		this.authManager = authManager;
+		this.env = env;
 	}
-	
+
 	@Override
 	public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response)
 			throws AuthenticationException {
@@ -57,7 +58,7 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 			Authentication authResult) throws IOException, ServletException {
 		log.trace("Generating JWTs");
 		User user = (User) authResult.getPrincipal();
-		Algorithm algorithm = Algorithm.HMAC256(secret.getBytes());
+		Algorithm algorithm = Algorithm.HMAC256(env.getProperty("JWT_SECRET").getBytes());
 		String access_token = JWT.create()
 				.withSubject(user.getUsername())
 				.withExpiresAt(new Date(System.currentTimeMillis() + 600 * 1000))

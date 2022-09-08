@@ -31,10 +31,10 @@ import com.spyglass.services.AccountService;
 @RequestMapping("/auth")
 public class AuthController {
 
-	private static final Logger log = LoggerFactory.getLogger(AuthorizationFilter.class);
+	private static final Logger log = LoggerFactory.getLogger(AuthController.class);
 	
-	//@Value("${jwt.secret}")
-	private String secret = "bruhwhydontitwork";
+	@Value("${JWT_SECRET}")
+	private String secret; //= "bruhwhydontitwork";
 	
 	@Autowired
 	private AccountService service;

@@ -20,4 +20,4 @@ logging:
         security: debug
 
 jwt:
-  secret: SpyglassSecret
+  secret: ${JWT_SECRET}

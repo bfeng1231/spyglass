@@ -1,5 +1,7 @@
 package com.spyglass.models;
 
+import java.util.Objects;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -130,11 +132,24 @@ public class Goal {
 		this.account = account;
 	}
 
-//	@Override
-//	public String toString() {
-//		return "Goal [id=" + id + ", name=" + name + ", description=" + description + ", picture=" + picture
-//				+ ", targetDate=" + targetDate + ", targetAmount=" + targetAmount + ", currentAmount=" + currentAmount
-//				+ ", account=" + account + "]";
-//	}
+	@Override
+	public int hashCode() {
+		return Objects.hash(currentAmount, description, id, name, picture, targetAmount, targetDate);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Goal other = (Goal) obj;
+		return currentAmount == other.currentAmount && Objects.equals(description, other.description) && id == other.id
+				&& Objects.equals(name, other.name) && Objects.equals(picture, other.picture)
+				&& targetAmount == other.targetAmount && Objects.equals(targetDate, other.targetDate);
+	}
+	
 
 }
