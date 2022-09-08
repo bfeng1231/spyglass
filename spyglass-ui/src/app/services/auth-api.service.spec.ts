@@ -1,16 +1,23 @@
 import { TestBed } from '@angular/core/testing';
 
 import { AuthApiService } from './auth-api.service';
+import { HttpClient } from '@angular/common/http';
 
 describe('AuthApiService', () => {
-  let service: AuthApiService;
+    let service: AuthApiService;
 
-  beforeEach(() => {
-    TestBed.configureTestingModule({});
-    service = TestBed.inject(AuthApiService);
-  });
+    let mockHttpClient = {
+        get: () => {}
+    }
 
-  it('should be created', () => {
-    expect(service).toBeTruthy();
-  });
+    beforeEach(() => {
+        TestBed.configureTestingModule({
+            providers: [{provide: HttpClient, useValue: mockHttpClient}]
+        });
+        service = TestBed.inject(AuthApiService);
+    });
+
+    it('should be created', () => {
+        expect(service).toBeTruthy();
+    });
 });
