@@ -17,6 +17,8 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
 import { CalendarModule } from 'primeng/calendar';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NavbarComponent } from './navbar/navbar.component';
+import { SlideMenuModule } from 'primeng/slidemenu';
+import { MessageModule } from 'primeng/message';
 
 @NgModule({
   declarations: [
@@ -38,7 +40,9 @@ import { NavbarComponent } from './navbar/navbar.component';
     ProgressBarModule,
     KeyFilterModule,
     CalendarModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    SlideMenuModule,
+    MessageModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -5,8 +5,10 @@
         </div>
     </div>
     <div class="account">
-        <div><i class="pi pi-user"></i></div>
-        <div>{{ user.firstName }}</div>
+        <!-- <div><i class="pi pi-user"></i></div>
+        <div>{{ user.firstName }}</div> -->
+        <button #btn type="button" pButton icon="pi pi-user" [label]="user.firstName" (click)="menu.toggle($event)"></button>
+        <p-slideMenu #menu [model]="items" [popup]="true" [viewportHeight]="100" [style]="{'width':'fit-content'}" ></p-slideMenu>
     </div>
 </nav>
 

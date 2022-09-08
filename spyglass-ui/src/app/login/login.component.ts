@@ -32,6 +32,8 @@ export class LoginComponent implements OnInit {
 
     formType: string = ''
 
+    errorMsg: string = ''
+
     ngOnInit(): void {
         if (this.router.url === '/register')
             this.formType = 'register'
@@ -49,6 +51,7 @@ export class LoginComponent implements OnInit {
     }
 
     submitForm() {
+        this.errorMsg = ''
         if (this.formType === 'login') {
             this.service.login(this.loginForm.value.email, this.loginForm.value.password).subscribe({
                 next: (resp) => { 
@@ -57,14 +60,21 @@ export class LoginComponent implements OnInit {
                     localStorage.setItem('refresh_token', resp.refresh_token)
                     this.router.navigate(['dashboard'])
                 },
-                error: (err) => { console.log('login failed') }
+                error: () => { this.errorMsg = 'Incorrect email or password' }
             })
         }
         else {
-            this.service.register(this.registerForm.value).subscribe(() => {
-                localStorage.clear()
-                this.router.navigate(['login'])
-            })
+            if (this.registerForm.value.password === this.registerForm.value.confirmPassword){
+                this.service.register(this.registerForm.value).subscribe({
+                    next: () => {
+                        localStorage.clear()
+                        this.router.navigate(['login'])
+                    },
+                    error: () => { this.errorMsg = 'Email not available' }
+                })
+            }
+            else
+                this.errorMsg = 'Passwords do not match'
         }
         
     }

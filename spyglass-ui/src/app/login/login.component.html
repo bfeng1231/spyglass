@@ -3,6 +3,7 @@
 <main>
     <form [formGroup]="loginForm" (ngSubmit)="submitForm()" *ngIf="formType === 'login'; else register">
         <h3>Log in to Spyglass</h3>
+        <p-message severity="error" [text]="errorMsg" *ngIf="errorMsg !== ''"></p-message>
         <div>
             <label for="email">Email</label>
             <input type="email" formControlName="email" pInputText>
@@ -19,6 +20,7 @@
     <ng-template #register>
         <form [formGroup]="registerForm" (ngSubmit)="submitForm()">
             <h3>Create an account</h3>
+            <p-message severity="error" [text]="errorMsg" *ngIf="errorMsg !== ''"></p-message>
             <div>
                 <label for="firstName">First Name</label>
                 <input type="firstName" formControlName="firstName" pInputText pKeyFilter="alpha">
@@ -40,7 +42,7 @@
                 <input type="password" formControlName="password" pInputText>
             </div>
             <div>
-                <label for="confirmPassword">Password</label>
+                <label for="confirmPassword">Confirm Password</label>
                 <input type="password" formControlName="confirmPassword" pInputText>
             </div>
             <p>By continuing, you agree to the Spyglass User Account Agreement and Privacy Policy.</p>

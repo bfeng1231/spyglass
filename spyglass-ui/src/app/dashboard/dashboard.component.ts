@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { AccountApiService } from '../services/account-api.service';
 import { AuthApiService } from '../services/auth-api.service';
 import { GoalApiService } from '../services/goal-api.service';
+import { MenuItem } from 'primeng/api';
 
 @Component({
     selector: 'app-dashboard',
@@ -29,6 +30,14 @@ export class DashboardComponent implements OnInit {
 
     goalForm: any
 
+    items: MenuItem[] = [
+        {
+            label:'Log Out',
+            icon:'pi pi-fw pi-power-off',
+            command: () => this.logout()
+        }
+    ]
+
     ngOnInit(): void {
         let access_token: any = localStorage.getItem('access_token')
         try {
@@ -50,6 +59,11 @@ export class DashboardComponent implements OnInit {
         } catch {
             this.router.navigate(['login'])
         }
+    }
+
+    logout() {
+        this.router.navigate([''])
+        localStorage.clear()
     }
 
     initializeForm() {
@@ -166,4 +180,5 @@ export class DashboardComponent implements OnInit {
     getPercent(current: number, target: number) {
         return Math.round(current / target * 100) 
     }
+
 }
