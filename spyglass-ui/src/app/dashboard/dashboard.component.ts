@@ -83,6 +83,7 @@ export class DashboardComponent implements OnInit {
         this.goalService.update(this.user.id, this.goalForm.value, localStorage.getItem('access_token')).subscribe({
             next: resp => {
                 this.user.goals[this.user.goals.findIndex((elem: any) => elem.id === this.goalForm.get('id').value)] = resp
+                this.modal = ''
             },
             error: () => {
                 console.log('Use refresh')
@@ -100,6 +101,7 @@ export class DashboardComponent implements OnInit {
         this.goalService.delete(id, localStorage.getItem('access_token')).subscribe({
             next: () => {
                 this.user.goals.splice(this.user.goals.findIndex((elem: any) => elem.id === id), 1)
+                this.modal = ''
             },
             error: () => {
                 console.log('Use refresh')

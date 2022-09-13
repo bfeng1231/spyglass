@@ -31,6 +31,7 @@ export class GoalApiService {
         
         body = {
             ...body,
+            targetDate: body.targetDate.toISOString().substring(0, 10),
             account: {id: accountId}
         }
         delete body.id
